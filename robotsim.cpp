@@ -1,7 +1,18 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
+
+class UltrasonicSensor
+{
+  public:
+    bool obstacleDetected()
+    {
+        return rand() % 4 == 0;
+    }  
+};
 
 class Robot 
 {
@@ -10,6 +21,7 @@ class Robot
         int y;
         string direction;
         int battery;
+        UltrasonicSensor sensor;
     public:
         Robot(){
             x = 0;
@@ -23,6 +35,13 @@ class Robot
             if(battery <= 0)
             {
                 cout << "Battery empty. Cannot move.\n";
+                return;
+            }
+
+            if(sensor.obstacleDetected())
+            {
+                cout << "Obstacle Detected\n";
+                cout << "Cannot move forward\n";
                 return;
             }
 
@@ -88,6 +107,18 @@ class Robot
             cout << "Turned right\n";
         }
 
+        void scan()
+        {
+            if(sensor.obstacleDetected())
+            {
+                cout << "Obstacle detected ahead!\n";
+            }
+            else
+            {
+                cout << "Path Clear\n";
+            }
+        }
+
         void displayStatus()
         {
             cout<< "\n===== ROBOT STATUS =====\n";
@@ -131,6 +162,7 @@ class Robot
 
 int main()
 {
+    srand(time(NULL));
     Robot robot;
 
     int choice;
@@ -145,6 +177,7 @@ int main()
         cout << "4. Turn Right\n";
         cout << "5. Display Status\n";
         cout << "6. Recharge\n";
+        cout << "7. Scan Area\n";
         cout << "0. Exit\n";
 
         cout << "Choice: ";
@@ -169,6 +202,9 @@ int main()
             break;
         case 6:
             robot.recharge();
+            break;
+        case 7: 
+            robot.scan();
             break;
         case 0: 
             cout << "Shutdown robot...\n";
