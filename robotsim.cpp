@@ -10,7 +10,7 @@ class UltrasonicSensor//sensor added
   public:
     bool obstacleDetected()
     {
-        return rand() % 4 == 0;
+        return rand() % 4 == 0;// 25% obstacle
     }  
 };
 
