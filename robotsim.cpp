@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class UltrasonicSensor
+class UltrasonicSensor//sensor added
 {
   public:
     bool obstacleDetected()
